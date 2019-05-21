@@ -40,14 +40,14 @@ public class PlayGround implements Map {
         rules.add(new Rules(4, new EnnemiBox("Dragon",15, 4,"")));
         rules.add(new Rules( 10, new EnnemiBox("Sorcier",15, 4,"")));
         rules.add(new Rules( 10, new EnnemiBox("Gobelin",15, 4,"")));
-        rules.add(new Rules( 5, new WeaponBox("Arc", 2, "")));
-        rules.add(new Rules(3, new WeaponBox("Massue", 3, "")));
-        rules.add(new Rules(2, new WeaponBox("Epee", 5, "")));
-        rules.add(new Rules(5, new SpellBox("Lgnthning", 2, "")));
-        rules.add(new Rules( 2, new SpellBox("Fireeball", 7, "")));
-        rules.add(new Rules( 5, new PotionBox("Potion Mineur", 1, "")));
-        rules.add(new Rules( 3, new PotionBox("Potion", 2, "")));
-        rules.add(new Rules( 1, new PotionBox("Potion Majeure", 5, "")));
+        rules.add(new Rules( 5, new EquipsBox("Arc", 2, 0,"")));
+        rules.add(new Rules(3, new EquipsBox("Massue", 3, 0, "")));
+        rules.add(new Rules(2, new EquipsBox("Epee", 5, 0,"")));
+        rules.add(new Rules(5, new EquipsBox("Ligthning", 2, 0, "")));
+        rules.add(new Rules( 2, new EquipsBox("Fireball", 7, 0, "")));
+        rules.add(new Rules( 5, new EquipsBox("Potion Mineur", 0, 1, "")));
+        rules.add(new Rules( 3, new EquipsBox("Potion", 0, 2, "")));
+        rules.add(new Rules( 1, new EquipsBox("Potion Majeure", 0, 5, "")));
         int nbNeutral = extractNeutral();
         rules.add(new Rules( nbNeutral, new NeutralBox()));
     }
