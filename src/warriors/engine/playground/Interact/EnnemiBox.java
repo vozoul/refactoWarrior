@@ -1,40 +1,39 @@
-package warriors.engine.plateau;
+package warriors.engine.playground.Interact;
 
 import warriors.contracts.Hero;
-import warriors.engine.Equipment;
+import warriors.engine.playground.Boxe;
 
-import java.util.Scanner;
+public class EnnemiBox extends Boxe {
 
-public class EnnemiBox extends Box {
-    protected Scanner sc = new Scanner(System.in);
-    protected int ennemiLife = 0;
-    protected int ennemiAtk = 0;
-    protected char response;
-    protected EnnemiBox ennemi = this;
+    private int caseNumber;
+    private String ennemi;
+    private int ennemiLife;
+    private int ennemiAtk;
+    private String text;
+    private char response;
 
-    protected EnnemiBox(){
-    }
-    public String getCaseResult(Hero hero, EnnemiBox ennemi){
-        String result = null;
-        System.out.println("Case : " + ennemi + " voulez vous combattre cet ennemi ? (C)ombatre / (F)uir");
-        response = sc.nextLine().charAt(0);
-        if(response == 'C') {
-            result = "\nVotre hero : " + hero.getName() + "\n" +
-                    "PDV = " + hero.getLife() + " ;\n" +
-                    "PDA = " + hero.getAttackLevel() + " ;\n" +
-                    "combat contre " + "\n" +
-                    "Votre ennemi : " + ennemi + "\n" +
-                    "PDV = " + ennemiLife + " ;\n" +
-                    "PDA = " + ennemiAtk + " ;\n";
-        }else{
-            result = "vous etes un couart !!";
-        }
-        return result;
+    public EnnemiBox(){
     }
 
+    public EnnemiBox(String ennemi, int life,int  atk, String text){
+        this.ennemi = ennemi;
+        this.ennemiLife = life;
+        this.ennemiAtk = atk;
+        this.text = text;
+    }
 
     @Override
-    public void doAction(Hero hero, Equipment currentEquipment){
+    public int getCaseNumber() {
+        return caseNumber;
+    }
+
+    @Override
+    public void setCaseNumber(int caseNumber) {
+        this.caseNumber = caseNumber;
+    }
+
+    @Override
+    public void doAction(Hero hero){
         if (response == 'C') {
             ennemiLife -= (hero.getAttackLevel());
             if (ennemiLife > 0) {

@@ -1,27 +1,28 @@
-package warriors.engine.plateau.cases;
+package warriors.engine.playground.Interact;
 
 import warriors.contracts.Hero;
-import warriors.engine.Equipment;
-import warriors.engine.plateau.Box;
+import warriors.engine.playground.Boxe;
 
-import java.util.ArrayList;
+public class NeutralBox extends Boxe {
 
-public class Neutral extends Box {
+    private int caseNumber;
 
-    protected int caseNumber;
-    protected String caseMessage;
+    public NeutralBox(){
 
-    public Neutral(){
-
-    }
-
-    public Neutral(int numberOfCase, String caseMessage){
-        this.caseNumber = numberOfCase;
-        this.caseMessage = caseMessage;
     }
 
     @Override
-    public void doAction(Hero hero, Equipment currentEquipment) {
+    public int getCaseNumber() {
+        return caseNumber;
+    }
+
+    @Override
+    public void setCaseNumber(int caseNumber) {
+        this.caseNumber = caseNumber;
+    }
+
+    @Override
+    public void doAction(Hero hero) {
         //doNothing...
     }
 }

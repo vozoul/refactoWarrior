@@ -38,5 +38,42 @@ public interface GameState {
 	/**
 	 * @return the current case
 	 */
-	int getCurrentCase(); 
+	int getCurrentCase();
+
+	//  ========  SETTERS    ========
+
+	/**
+	 * Set the name player
+	 */
+	void setPlayerName(String playerName);
+
+	/**
+	 *Set the gameID
+	 */
+	void setGameID(String gameID);
+
+	/**
+	 * Set the game status
+	 */
+	void setGameStatus(GameStatus status);
+
+	/**
+	 * Set the heroe
+	 */
+	void setHero(Hero hero);
+
+	/**
+	 *Set the map
+	 */
+	void setMap(Map map);
+
+	/**
+	 * Set the log
+	 */
+	void setLastLog(String log);
+
+	/**
+	 * Set the current position of player
+	 */
+	void setCurrentCase(int currentCase);
 }

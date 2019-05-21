@@ -1,25 +1,43 @@
-package warriors.engine.plateau;
+package warriors.engine.playground.Interact;
 
 import warriors.contracts.Hero;
-import warriors.engine.Equipment;
-import warriors.engine.plateau.Box;
-import warriors.engine.plateau.equipment.Spell;
-import warriors.engine.plateau.equipment.Weapon;
+import warriors.engine.player.Magic;
+import warriors.engine.playground.Boxe;
 
-public class SpellBox extends Box {
+public class SpellBox extends Boxe {
 
+    private String type;
     protected int dammage = 0;
+    private String text;
+    private int caseNumber;
 
-    protected SpellBox() {
+    protected SpellBox() {}
 
+
+    public SpellBox(String type, int damages, String text) {
+        this.type = type;
+        this.dammage = damages;
+        this.text = text;
     }
 
     @Override
-    public void doAction(Hero hero, Equipment currentEquipment) {
-        Spell spell = new Spell(dammage);
-        if (spell.canBeUsedBy(hero)) {
-            currentEquipment = spell;
-            hero.setAttackLevel(Math.min(hero.getMaxLifeLevel(), hero.getAttackLevel()+spell.getDammage()));
+    public int getCaseNumber() {
+        return caseNumber;
+    }
+
+    @Override
+    public void setCaseNumber(int caseNumber) {
+        this.caseNumber = caseNumber;
+    }
+
+    private boolean canBeUsedBy(Hero hero){
+        return (hero instanceof Magic);
+    }
+
+    @Override
+    public void doAction(Hero hero) {
+        if(canBeUsedBy(hero)){
+
         }
     }
 

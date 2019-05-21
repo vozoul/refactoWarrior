@@ -1,24 +1,41 @@
-package warriors.engine.plateau;
+package warriors.engine.playground.Interact;
 
 import warriors.contracts.Hero;
-import warriors.engine.Equipment;
-import warriors.engine.plateau.Box;
-import warriors.engine.plateau.equipment.Weapon;
+import warriors.engine.player.Warrior;
+import warriors.engine.playground.Boxe;
 
-public class WeaponBox extends Box {
+public class WeaponBox extends Boxe {
 
-    public int dammage = 0;
+    private int caseNumber;
+    private String type;
+    private int dammage = 0;
+    private String text;
 
-    protected WeaponBox() {
+    public WeaponBox() {}
 
+    public WeaponBox(String type, int damages, String text) {
+        this.dammage = damages;
+        this.text = text;
     }
 
     @Override
-    public void doAction(Hero hero, Equipment currentEquipment) {
-        Weapon weapon = new Weapon(dammage);
-        if (weapon.canBeUsedBy(hero)) {
-            currentEquipment = weapon;
-            hero.setAttackLevel(Math.min(hero.getMaxLifeLevel(), hero.getAttackLevel()+weapon.getDammage()));
+    public int getCaseNumber() {
+        return caseNumber;
+    }
+
+    @Override
+    public void setCaseNumber(int caseNumber) {
+        this.caseNumber = caseNumber;
+    }
+
+    private boolean canBeUsedBy(Hero hero){
+        return (hero instanceof Warrior);
+    }
+
+    @Override
+    public void doAction(Hero hero) {
+        if(canBeUsedBy(hero)){
+
         }
     }
 }

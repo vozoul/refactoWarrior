@@ -12,6 +12,11 @@ public interface WarriorsAPI {
 	 * @return the list of available heroes
 	 */
 	List<Hero> getHeroes();
+
+	/**
+	 * @param hero
+	 */
+	void setHero(Hero hero);
 	
 	/**
 	 * Called by the client to retrieve the list of available maps.
