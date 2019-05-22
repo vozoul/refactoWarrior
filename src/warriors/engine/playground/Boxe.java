@@ -9,4 +9,9 @@ public abstract class Boxe {
     public abstract void setCaseNumber(int caseNumber);
 
     public abstract void doAction(Hero hero);
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

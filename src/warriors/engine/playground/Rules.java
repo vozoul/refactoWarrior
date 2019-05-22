@@ -1,5 +1,12 @@
 package warriors.engine.playground;
 
+import warriors.contracts.Hero;
+import warriors.contracts.Map;
+import warriors.engine.Warriors;
+import warriors.engine.player.Heroe;
+import warriors.engine.player.Magic;
+import warriors.engine.player.Warrior;
+
 import java.util.ArrayList;
 
 public class Rules {
@@ -8,6 +15,7 @@ public class Rules {
     private Boxe myCase;
     private ArrayList<String> spells = new ArrayList<>();
     private ArrayList<String> weapons = new ArrayList<>();
+    private ArrayList<String> potions = new ArrayList<>();
 
     public Rules (){
         spells.add("Fireball");
@@ -15,6 +23,9 @@ public class Rules {
         weapons.add("Arc");
         weapons.add("Hammer");
         weapons.add("Sword");
+        potions.add("Potion mineure");
+        potions.add("Potion");
+        potions.add("Potion majeure");
     }
 
     public int getMaxInGame() {

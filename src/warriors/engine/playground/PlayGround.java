@@ -1,19 +1,25 @@
 package warriors.engine.playground;
-import warriors.contracts.Map;
-import warriors.engine.playground.Interact.*;
 
+import warriors.contracts.Map;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PlayGround implements Map {
 
     private String name;
     private int numberOfCase;
     private ArrayList<Rules> rules = new ArrayList<>();
+    private ArrayList<Boxe> cases = new ArrayList<>();
 
 
     public PlayGround(){
 
+    }
+
+    public PlayGround(String name, int numberOfCase){
+        this.name = name;
+        this.numberOfCase = numberOfCase;
     }
 
     @Override
@@ -25,6 +31,10 @@ public class PlayGround implements Map {
     public int getNumberOfCase() {
         return numberOfCase;
     }
+
+    public ArrayList<Boxe> getCases(){ return cases; }
+
+    public Boxe getMyCases(int numberOfCase){ return cases.get(numberOfCase); }
 
     @Override
     public void setName(String mapName) {
@@ -45,11 +55,11 @@ public class PlayGround implements Map {
         rules.add(new Rules(2, new EquipsBox("Epee", 5, 0,"")));
         rules.add(new Rules(5, new EquipsBox("Ligthning", 2, 0, "")));
         rules.add(new Rules( 2, new EquipsBox("Fireball", 7, 0, "")));
-        rules.add(new Rules( 5, new EquipsBox("Potion Mineur", 0, 1, "")));
+        rules.add(new Rules( 5, new EquipsBox("Potion Mineure", 0, 1, "")));
         rules.add(new Rules( 3, new EquipsBox("Potion", 0, 2, "")));
         rules.add(new Rules( 1, new EquipsBox("Potion Majeure", 0, 5, "")));
         int nbNeutral = extractNeutral();
-        rules.add(new Rules( nbNeutral, new NeutralBox()));
+        rules.add(new Rules( nbNeutral, new EquipsBox()));
     }
 
     private int extractNeutral(){
@@ -59,6 +69,22 @@ public class PlayGround implements Map {
         }
         int nbNeutral = numberOfCase - caseUtil;
         return nbNeutral;
+    }
+
+    public void createMap(){
+        setRules();
+        for(Rules rule:rules){
+            for (int i = 0; i < rule.getMaxInGame(); i++){
+                Boxe maCase = ((Rules) rule).getMyCase();
+                cases.add(maCase);
+            }
+        }
+        Collections.shuffle(cases);
+        int numCase = 0;
+        for(Boxe carre:cases){
+            carre.setCaseNumber(numCase);
+            numCase++;
+        }
     }
 
 }

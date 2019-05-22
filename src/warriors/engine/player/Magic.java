@@ -2,8 +2,6 @@ package warriors.engine.player;
 
 public class Magic extends Heroe {
 
-
-
     private String name = "Merlin";
     private String image = "magicien";
     private int lifeLevel = 3;

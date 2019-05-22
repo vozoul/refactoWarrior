@@ -42,8 +42,8 @@ public class ClientConsole {
 		for(int i = 0; i < warriors.getHeroes().size(); i++) {
 			Hero heroe = warriors.getHeroes().get(i);
 			System.out.println(i+1 + " - " + heroe.getName());
-			System.out.println("    Force d'attaque : " + heroe.getAttackLevel());
 			System.out.println("    Niveau de vie : " + heroe.getLife());
+			System.out.println("    Force d'attaque : " + heroe.getAttackLevel());
 		}
 		Hero chosenHeroe = warriors.getHeroes().get(Integer.parseInt(sc.nextLine()) - 1);
 		
