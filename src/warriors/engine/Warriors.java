@@ -1,16 +1,10 @@
 package warriors.engine;
 
 import warriors.contracts.*;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PrimitiveIterator;
+import java.util.Scanner;
 
 public class Warriors implements WarriorsAPI {
 
@@ -20,13 +14,14 @@ public class Warriors implements WarriorsAPI {
     private String infoPlus = null;
     private ArrayList<Hero> heroesList = new ArrayList<>();
     private ArrayList<Map> mapsList = new ArrayList<>();
-    private Hero backUpHero;
+    private int round = 0;
 
     public Warriors() {
         seed();
     }
 
     public Warriors(String debug){
+
         Heroe arthur = new Warrior();
         Map maps = new PlayGround();
         heroesList.add(arthur);
@@ -52,7 +47,6 @@ public class Warriors implements WarriorsAPI {
     @Override
     public GameState createGame(String playerName, Hero hero, Map map) {
 
-        backUpHero = hero;
         this.game = new State(playerName, hero, map);
         ((PlayGround) game.getMap()).createMap();
         game.setLastLog(map.getName() + " La partie commence");
@@ -62,49 +56,30 @@ public class Warriors implements WarriorsAPI {
 
     @Override
     public GameState nextTurn(String gameID) {
-        if(log.equals("DEBUG MODE")){
-            game.setLastLog(log);
-            try
-            {
-                String chemin = "./src/warriors/engine/Scenario.csv";
-                BufferedReader fichier_source = new BufferedReader(new FileReader(chemin));
-                String chaine = fichier_source.readLine();
-                while((chaine)!= null){
-                    String[] resultats = chaine.split(",");
-                    for(String res:resultats){
-                        int jet = Integer.parseInt(res);
-                        System.out.println(jet);
-                    }
-                }
-                fichier_source.close();
-                this.game.setGameStatus(GameStatus.FINISHED);
-            }
-            catch (FileNotFoundException e)
-            {
-                System.out.println("Le fichier est introuvable !");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else {
-            game.setLastLog("");
-            info = "";
-            infoPlus = "";
-            int dice = 1 + (int) (Math.random() * ((6 - 1) + 1));
-            int newCase = Math.min(game.getMap().getNumberOfCase(), game.getCurrentCase() + dice);
-            String diceLog = "les dés ont fait : " + dice + " Vous avancez a la case : " + newCase;
-            game.setCurrentCase(newCase);
-            if (newCase < game.getMap().getNumberOfCase()) {
-                Boxe maCase = ((PlayGround) game.getMap()).getMyCases(game.getCurrentCase());
-                maCase.doAction(game.getHero());
-                info = diceLog + "\n";
-                checkBoxe(maCase);
-                info += infoPlus;
-                game.setLastLog(info);
-            } else {
-                info = "Bien jouer belle partie vous avez occi tout les dragons sorciers et gobelins... FELICITATION !!";
-                game.setGameStatus(GameStatus.FINISHED);
-            }
+        game.setLastLog("");
+        info = "";
+        infoPlus = "";
+        int dice = 0;
+//        if(log == "DEBUG MODE"){
+//            CSV();
+//            round++;
+//        }else {
+            dice = 1 + (int) (Math.random() * ((6 - 1) + 1));
+//        }
+        int newCase = Math.min(game.getMap().getNumberOfCase(), game.getCurrentCase() + dice);
+        String diceLog = "les dés ont fait : " + dice + " Vous avancez a la case : " + newCase;
+
+        game.setCurrentCase(newCase);
+        if (newCase < game.getMap().getNumberOfCase()) {
+            Boxe maCase = ((PlayGround) game.getMap()).getMyCases(game.getCurrentCase());
+            maCase.doAction(game.getHero());
+            checkBoxe(maCase);
+            info += infoPlus;
+        } else {
+            info = "Bien jouer belle partie vous avez occi tout les dragons sorciers et gobelins... FELICITATION !!";
+            game.setGameStatus(GameStatus.FINISHED);
         }
+        game.setLastLog(diceLog + "\n" +info);
         return game;
     }
 
@@ -124,7 +99,6 @@ public class Warriors implements WarriorsAPI {
                         "   - PDA : " + ((EnnemiBox) maCase).getEnnemiAtk() + "\n";
             if (game.getHero().getLife() <= 0) {
                 infoPlus += "\n\nVous avez PERDU ce combat";
-                this.resetHero(game.getHero());
                 game.setGameStatus(GameStatus.GAME_OVER);
             } else if (((EnnemiBox) maCase).getEnnemiLife() <= 0) {
                 infoPlus += "Vous avez GAGNER ce combat";
@@ -136,23 +110,12 @@ public class Warriors implements WarriorsAPI {
                         game.getHero().getName() + "\n" +
                         "   - PDV : " + Math.max(game.getHero().getLife(), 0) + "\n" +
                         "   - PDA : " + game.getHero().getAttackLevel() + "\n\n";
-                resetHero(game.getHero());
             }else {
                 infoPlus = "\nPetite promenade dans de vertes prairies";
             }
             game.setGameStatus(GameStatus.IN_PROGRESS);
         }
     }
-
-
-    /**
-     * Rest the heroe's stats
-     * @param currentHero
-     */
-    private void resetHero(Hero currentHero){
-        currentHero = this.backUpHero;
-    }
-
 
     /**
      * Generate heroes and maps
@@ -172,6 +135,14 @@ public class Warriors implements WarriorsAPI {
         mapsList.add(map3);
     }
 
+    private void CSV(){
+        File file = new File("src/warriors/engine/Scenario.csv");
+        try {
+            Scanner in = new Scanner(file);
+        }catch (Exception e){
 
+        }
+
+    }
 }
 

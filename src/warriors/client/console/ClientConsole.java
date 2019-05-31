@@ -1,17 +1,16 @@
 package warriors.client.console;
 
-import java.io.*;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.Scanner;
 
-import com.sun.source.doctree.ThrowsTree;
+import warriors.config.Cfg;
 import warriors.contracts.GameState;
 import warriors.contracts.GameStatus;
 import warriors.contracts.Hero;
 import warriors.contracts.Map;
 import warriors.contracts.WarriorsAPI;
+import warriors.database.MysqlDatabase;
 import warriors.engine.Warriors;
 
 public class ClientConsole {
@@ -19,6 +18,10 @@ public class ClientConsole {
     private static String MENU_COMMENCER_PARTIE = "1";
     private static String DEBUG_MODE = "2";
     private static String MENU_QUITTER = "3";
+    private static String TEST_CON = "4";
+
+
+    private static Hero backUpHero;
 
     public static void main(String[] args) {
 
@@ -32,6 +35,9 @@ public class ClientConsole {
                 startGame(warriors, sc);
             } else if (menuChoice.equals(DEBUG_MODE)) {
                 startGame(debug, sc);
+            } else if (menuChoice.equals(TEST_CON)){
+                new MysqlDatabase();
+                MysqlDatabase.connectTest();
             }
         } while (!menuChoice.equals(MENU_QUITTER));
         sc.close();
@@ -42,7 +48,7 @@ public class ClientConsole {
         System.out.println();
         System.out.println("Entrez votre nom:");
         String playerName = sc.nextLine();
-
+        int firstRound = 0;
         System.out.println("Choisissez votre héro:");
         for (int i = 0; i < warriors.getHeroes().size(); i++) {
             Hero heroe = warriors.getHeroes().get(i);
@@ -51,6 +57,9 @@ public class ClientConsole {
             System.out.println("    Force d'attaque : " + heroe.getAttackLevel());
         }
         Hero chosenHeroe = warriors.getHeroes().get(Integer.parseInt(sc.nextLine()) - 1);
+
+        backUpHero = ((Hero) chosenHeroe.clone());
+
 
         System.out.println("Choisissez votre map:");
         for (int i = 0; i < warriors.getMaps().size(); i++) {
@@ -74,6 +83,8 @@ public class ClientConsole {
             }
         }
 
+
+        resetHero(gameState.getHero());
         System.out.println(gameState.getLastLog());
     }
 
@@ -89,6 +100,15 @@ public class ClientConsole {
         }
 
         return "";
+    }
+
+    /**
+     * Rest the heroe's stats
+     * @param currentHero
+     */
+    private static void resetHero(Hero currentHero){
+        currentHero.setLife(backUpHero.getLife());
+        currentHero.setAttackLevel(backUpHero.getAttackLevel());
     }
 }
 

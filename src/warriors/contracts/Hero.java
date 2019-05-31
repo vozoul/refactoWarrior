@@ -64,4 +64,6 @@ public interface Hero {
 	 * set the attack level of the hero
 	 */
 	void setMaxAttackLevel(int attackLevel);
+
+	Object clone();
 }

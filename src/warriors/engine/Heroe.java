@@ -2,8 +2,9 @@ package warriors.engine;
 
 import warriors.contracts.Hero;
 
-public class Heroe implements Hero {
+public class Heroe implements Hero, Cloneable {
 
+    private int id;
     private String heroName;
     private String heroImage;
     private int heroLife;
@@ -11,6 +12,14 @@ public class Heroe implements Hero {
     private int heroMaxLife;
     private int heroMaxAtkLevel;
 
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getId(){
+        return id;
+    }
 
     @Override
     public String getName() {
@@ -70,5 +79,14 @@ public class Heroe implements Hero {
     @Override
     public void setMaxAttackLevel(int maxAttackLevel) {
         this.heroMaxAtkLevel = maxAttackLevel;
+    }
+
+    public Object clone(){
+        try{
+            return super.clone();
+        }catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

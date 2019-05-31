@@ -45,13 +45,10 @@ public class EquipsBox extends Boxe {
     private boolean canBeUsedBy(Hero hero){
         this.hero = hero;
         if(rules.getSpells().contains(type)) {
-            retour += "\n Vous pouvez utiliser cegt objet";
             return (hero instanceof Magic);
         }else if(rules.getWeapons().contains(type)){
-            retour += "\n Vous pouvez utiliser cegt objet";
             return (hero instanceof Warrior);
         }else{
-            retour += "\n A votre santé !";
             return true;
         }
     }

@@ -2,12 +2,12 @@ package warriors.engine;
 
 public class Warrior extends Heroe {
 
-    private String name = "Arthur";
-    private String image = "guerrier";
-    private int lifeLevel = 15;
-    private int maxLifeLevel = 40;
-    private int attackLevel = 6;
-    private int maxAttackLevel = 30;
+    private String name = "Bouhh";
+    private String image = "sayan";
+    private int lifeLevel = 3500;
+    private int maxLifeLevel = 90000;
+    private int attackLevel = 60000;
+    private int maxAttackLevel = 90000;
 
     public Warrior(){
         setName(name);

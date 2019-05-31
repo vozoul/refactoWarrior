@@ -1,5 +1,7 @@
 package warriors.contracts;
 
+import warriors.engine.Heroe;
+
 import java.util.List;
 
 /**
